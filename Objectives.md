@@ -12,3 +12,10 @@
 - Describe the syntax of the CloudFormation code that builds the infrastructure
 - Build the following resources - Virtual Private Cloud and subnets, Internet gateway and NAT gateway, Route table
 - Export the stack output
+# Servers and Security Groups
+- Specify firewall rules using security groups
+- Create autoscaling groups for the elasticity of servers
+- Code the launch configuration for the web application
+- Add the target groups and listeners
+- Update the stack with the load balancer
+- Learn to debug the security group
