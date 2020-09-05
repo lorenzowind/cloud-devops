@@ -21,6 +21,14 @@ Resources:
         FromPort: 80
         ToPort: 80
         CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 8080
+        ToPort: 8080
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 8080
+        ToPort: 8080
+        CidrIpv6: ::/0
 
   WebServerSecGroup:
     Type: AWS::EC2::SecurityGroup
@@ -31,8 +39,8 @@ Resources:
           !Sub "${EnvironmentName}-VPCID"
       SecurityGroupIngress:
       - IpProtocol: tcp
-        FromPort: 8080
-        ToPort: 8080
+        FromPort: 80
+        ToPort: 80
         CidrIp: 0.0.0.0/0
       - IpProtocol: tcp
         FromPort: 22
@@ -49,13 +57,13 @@ Resources:
     Properties:
       UserData:
         Fn::Base64: !Sub |
-         #!/bin/bash
+          #!/bin/bash
           apt-get update -y
           apt-get install apache2 -y
           systemctl start apache2.service
           cd /var/www/html
           echo "Udacity Demo Web Server Up and Running!" > index.html
-      ImageId: ami-005bdb005fb00e791
+      ImageId: ami-0a634ae95e11c6f91
       SecurityGroups:
       - Ref: WebServerSecGroup
       InstanceType: t3.small
@@ -113,10 +121,10 @@ Resources:
   WebAppTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      HealthCheckIntervalSeconds: 10
+      HealthCheckIntervalSeconds: 35
       HealthCheckPath: /
       HealthCheckProtocol: HTTP
-      HealthCheckTimeoutSeconds: 8
+      HealthCheckTimeoutSeconds: 30
       HealthyThresholdCount: 2
       Port: 80
       Protocol: HTTP
