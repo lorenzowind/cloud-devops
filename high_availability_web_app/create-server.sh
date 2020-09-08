@@ -1,0 +1,1 @@
+aws cloudformation create-stack --stack-name high-availability-web-app-server --template-body file://server/server.yml --parameters file://server/server-params.json --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" --region=us-west-2
