@@ -82,7 +82,8 @@ Resources:
           cd /var/www/html
           aws s3 cp s3://udacity-demo-1/udacity.zip .
           unzip -o udacity.zip
-      ImageId: ami-0d1cd67c26f5fca19
+      ImageId: ami-0a634ae95e11c6f91
+      IamInstanceProfile: !Ref ProfileWithRolesForOurApp
       SecurityGroups:
         - Ref: WebServerSecGroup
       InstanceType: t3.small
@@ -108,8 +109,8 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Subnets:
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI1-SN"
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI2-SN"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
       SecurityGroups:
         - Ref: LBSecGroup
 
